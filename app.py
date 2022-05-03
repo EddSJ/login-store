@@ -17,6 +17,10 @@ app.config['MYSQL_DB'] = 'FVJpgw76FR'
 mysql = MySQL(app)
   
 @app.route('/')
+def index():
+    return (
+    '<h1>Bienvenido a la API de Loggin</h1>'
+    )
 @app.route('/login', methods =['GET', 'POST'])
 def login():
     msg = ''

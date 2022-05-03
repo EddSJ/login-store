@@ -2,9 +2,12 @@ from flask import Flask, jsonify, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
+from flask_cors import CORS, cross_origin
   
   
 app = Flask(__name__)
+
+CORS(app)
   
   
 app.secret_key = 'nopales'
@@ -21,6 +24,8 @@ def index():
     return (
     '<h1>Bienvenido a la API de Loggin</h1>'
     )
+
+@cross_origin
 @app.route('/login', methods =['GET', 'POST'])
 def login():
     msg = ''
@@ -43,7 +48,8 @@ def login():
         'loggedin': session.get('loggedin'),
         'id': account['id'],
     })
-  
+
+@cross_origin
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
@@ -52,6 +58,7 @@ def logout():
     #response in json
     return jsonify({'message': 'Logged out successfully !'})
   
+@cross_origin
 @app.route('/register', methods =['GET', 'POST'])
 def register():
     msg = ''
